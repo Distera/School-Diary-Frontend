@@ -13,6 +13,8 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import {ApiModule} from "./api/api.module";
+import {environment} from "../environments/environment";
 
 registerLocaleData(en);
 
@@ -23,6 +25,7 @@ registerLocaleData(en);
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ApiModule.forRoot({rootUrl: environment.apiUrl}),
     IconsProviderModule,
     NzLayoutModule,
     NzMenuModule,

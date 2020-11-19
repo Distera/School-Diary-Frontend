@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { TeacherDto } from '../models/teacher-dto';
+import { TeacherMinDto } from '../models/teacher-min-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,7 @@ export class TeachersService extends BaseService {
    */
   teachersGet$Plain$Response(params?: {
 
-  }): Observable<StrictHttpResponse<Array<TeacherDto>>> {
+  }): Observable<StrictHttpResponse<Array<TeacherMinDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, TeachersService.TeachersGetPath, 'get');
     if (params) {
@@ -47,7 +48,7 @@ export class TeachersService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<TeacherDto>>;
+        return r as StrictHttpResponse<Array<TeacherMinDto>>;
       })
     );
   }
@@ -60,10 +61,10 @@ export class TeachersService extends BaseService {
    */
   teachersGet$Plain(params?: {
 
-  }): Observable<Array<TeacherDto>> {
+  }): Observable<Array<TeacherMinDto>> {
 
     return this.teachersGet$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<TeacherDto>>) => r.body as Array<TeacherDto>)
+      map((r: StrictHttpResponse<Array<TeacherMinDto>>) => r.body as Array<TeacherMinDto>)
     );
   }
 
@@ -75,7 +76,7 @@ export class TeachersService extends BaseService {
    */
   teachersGet$Json$Response(params?: {
 
-  }): Observable<StrictHttpResponse<Array<TeacherDto>>> {
+  }): Observable<StrictHttpResponse<Array<TeacherMinDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, TeachersService.TeachersGetPath, 'get');
     if (params) {
@@ -88,7 +89,7 @@ export class TeachersService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<TeacherDto>>;
+        return r as StrictHttpResponse<Array<TeacherMinDto>>;
       })
     );
   }
@@ -101,10 +102,10 @@ export class TeachersService extends BaseService {
    */
   teachersGet$Json(params?: {
 
-  }): Observable<Array<TeacherDto>> {
+  }): Observable<Array<TeacherMinDto>> {
 
     return this.teachersGet$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<TeacherDto>>) => r.body as Array<TeacherDto>)
+      map((r: StrictHttpResponse<Array<TeacherMinDto>>) => r.body as Array<TeacherMinDto>)
     );
   }
 

@@ -1,7 +1,7 @@
 /* tslint:disable */
 export interface GradeDto {
-  studentId?: number;
-  subjectId?: number;
-  teacherId?: number;
+  studentId?: null | number;
+  subjectId?: null | number;
+  teacherId?: null | number;
   value?: number;
 }

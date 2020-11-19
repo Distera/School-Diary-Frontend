@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { GradeDto } from '../models/grade-dto';
+import { GradeMinDto } from '../models/grade-min-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,93 @@ export class GradesService extends BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  /**
+   * Path part for operation gradesGet
+   */
+  static readonly GradesGetPath = '/Grades';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `gradesGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  gradesGet$Plain$Response(params?: {
+
+  }): Observable<StrictHttpResponse<Array<GradeMinDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, GradesService.GradesGetPath, 'get');
+    if (params) {
+
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GradeMinDto>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `gradesGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  gradesGet$Plain(params?: {
+
+  }): Observable<Array<GradeMinDto>> {
+
+    return this.gradesGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GradeMinDto>>) => r.body as Array<GradeMinDto>)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `gradesGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  gradesGet$Json$Response(params?: {
+
+  }): Observable<StrictHttpResponse<Array<GradeMinDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, GradesService.GradesGetPath, 'get');
+    if (params) {
+
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GradeMinDto>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `gradesGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  gradesGet$Json(params?: {
+
+  }): Observable<Array<GradeMinDto>> {
+
+    return this.gradesGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GradeMinDto>>) => r.body as Array<GradeMinDto>)
+    );
   }
 
   /**

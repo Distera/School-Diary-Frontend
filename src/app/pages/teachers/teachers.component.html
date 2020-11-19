@@ -1,0 +1,36 @@
+﻿<h3>Teachers <button nz-button nzType="default" (click)="selectBlankTeacher()">Create</button></h3>
+
+<nz-list nzBordered>
+  <nz-list-item *ngFor="let teacher of $teachers | async">
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <a (click)="selectTeacher(teacher.id!)">edit</a>
+      </nz-list-item-action>
+    </ul>
+    {{ teacher.middleName }} {{ teacher.firstName }} {{ teacher.lastName }}
+  </nz-list-item>
+</nz-list>
+
+<nz-modal [nzVisible]="!!selectedTeacher" nzTitle="Teacher" (nzOnCancel)="selectedTeacher=undefined">
+  <div *ngIf="selectedTeacher">
+    <input nz-input placeholder="firstName" [(ngModel)]="selectedTeacher.firstName"/>
+    <br/>
+    <br/>
+    <input nz-input placeholder="lastName" [(ngModel)]="selectedTeacher.lastName"/>
+    <br/>
+    <br/>
+    <input nz-input placeholder="middleName" [(ngModel)]="selectedTeacher.middleName"/>
+    <br/>
+    <br/>
+    <input nz-input placeholder="phone" [(ngModel)]="selectedTeacher.phone"/>
+    <br/>
+    <br/>
+    <nz-select nzMode="multiple" nzPlaceHolder="Select subjects" [(ngModel)]="selectedTeacher.subjectsIds">
+      <nz-option *ngFor="let subject of $subjects | async" [nzLabel]="subject.name!" [nzValue]="subject.id"></nz-option>
+    </nz-select>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="saveSelectedTeacher()">Save</button>
+    <button nz-button nzType="primary" nzDanger *ngIf="selectedTeacherId !== undefined" (click)="deleteSelectedTeacher()">Delete</button>
+  </div>
+</nz-modal>

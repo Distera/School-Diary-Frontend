@@ -1,0 +1,26 @@
+﻿<h3>Subjects <button nz-button nzType="default" (click)="selectBlankSubject()">Create</button></h3>
+
+<nz-list nzBordered>
+  <nz-list-item *ngFor="let subject of $subjects | async">
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <a (click)="selectSubject(subject.id!)">edit</a>
+      </nz-list-item-action>
+    </ul>
+    {{ subject.name }}
+  </nz-list-item>
+</nz-list>
+
+<nz-modal [nzVisible]="!!selectedSubject" nzTitle="Subject" (nzOnCancel)="selectedSubject=undefined">
+  <div *ngIf="selectedSubject">
+    <input nz-input placeholder="Name" [(ngModel)]="selectedSubject.name"/>
+    <br/>
+    <br/>
+    <textarea nz-input placeholder="Description" [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+              [(ngModel)]="selectedSubject.description"></textarea>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="saveSelectedSubject()">Save</button>
+    <button nz-button nzType="primary" nzDanger *ngIf="selectedSubjectId !== undefined" (click)="deleteSelectedSubject()">Delete</button>
+  </div>
+</nz-modal>

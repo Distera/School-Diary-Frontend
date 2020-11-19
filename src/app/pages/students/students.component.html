@@ -1,0 +1,28 @@
+﻿<h3>Students <button nz-button nzType="default" (click)="selectBlankStudent()">Create</button></h3>
+
+<nz-list nzBordered>
+  <nz-list-item *ngFor="let student of $students | async">
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <a (click)="selectStudent(student.id!)">edit</a>
+      </nz-list-item-action>
+    </ul>
+    {{ student.middleName}} {{ student.firstName}} {{ student.lastName}}
+  </nz-list-item>
+</nz-list>
+
+<nz-modal [nzVisible]="!!selectedStudent" nzTitle="Student" (nzOnCancel)="selectedStudent=undefined">
+  <div *ngIf="selectedStudent">
+    <input nz-input placeholder="Name" [(ngModel)]="selectedStudent.firstName"/>
+    <br/>
+    <br/>
+    <input nz-input placeholder="LastName" [(ngModel)]="selectedStudent.lastName"/>
+    <br/>
+    <br/>
+    <input nz-input placeholder="MiddleName" [(ngModel)]="selectedStudent.middleName"/>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="saveSelectedStudent()">Save</button>
+    <button nz-button nzType="primary" nzDanger *ngIf="selectedStudentId !== undefined" (click)="deleteSelectedStudent()">Delete</button>
+  </div>
+</nz-modal>
